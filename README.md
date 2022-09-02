@@ -5,20 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/content-negotiation.svg)](https://pypi.org/project/content-negotiation/)
 [![Read the Docs](https://readthedocs.org/projects/content-negotiation/badge/)](https://content-negotiation.readthedocs.io/)
 
-A small Python library for mapping a data catalog to rdf
-
-The library contains helper classes for the following dcat classes:
-
-- [Catalog](https://www.w3.org/TR/vocab-dcat-2/#Class:Catalog)
-- [Dataset](https://www.w3.org/TR/vocab-dcat-2/#Class:Dataset)
-- [Distribution](https://www.w3.org/TR/vocab-dcat-2/#Class:Distribution)
-- [Data Service](https://www.w3.org/TR/vocab-dcat-2/#Class:Data_Service)
-
- Other relevant classes are also supported, such as:
-
-- Contact [vcard:Kind](https://www.w3.org/TR/2014/NOTE-vcard-rdf-20140522/#d4e1819)
-
- The library will map to [the Norwegian Application Profile](https://data.norge.no/specification/dcat-ap-no) of [the DCAT standard](https://www.w3.org/TR/vocab-dcat-2/).
+A small Python library for deciding content type based on a list of media ranges
 
 ## Usage
 
@@ -83,7 +70,7 @@ content_type = decide_content_type(
 You can enter into [Pdb](https://docs.python.org/3/library/pdb.html) by passing `--pdb` to pytest:
 
 ```Shell
-nox -rs tests -- --pdb
+% nox -rs tests -- --pdb  --log-cli-level=DEBUG
 ```
 
 You can set breakpoints directly in code by using the function `breakpoint()`.
