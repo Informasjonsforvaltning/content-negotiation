@@ -1,0 +1,4 @@
+# docs/requirements.txt
+sphinx==5.0.1
+sphinx-autodoc-typehints==1.18.3
+sphinxcontrib-napoleon==0.7

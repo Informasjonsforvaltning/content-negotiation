@@ -1,0 +1,10 @@
+name: Release Drafter
+on:
+  push:
+    branches:
+      - main
+jobs:
+  draft_release:
+    uses: Informasjonsforvaltning/workflows/.github/workflows/release-draft.yaml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
