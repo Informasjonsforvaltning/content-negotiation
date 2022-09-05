@@ -3,9 +3,15 @@
 Example:
     >>> from content_negotiation import decide_content_type
     >>>
-    >>> accept = ["application/json", "text/html", "text/plain, "text/*;q=0.8"]
-    >>> supported = ["text/turtle", "application/json"]
-    >>> decide_content_type(accept, supported)
+    >>> accept_headers = ["application/json", "text/html", "text/plain, text/*;q=0.8"]
+    >>> supported_content_types = ["text/turtle", "application/json"]
+    >>>
+    >>> try:
+    >>>     content_type = decide_content_type(accept_headers, supported_content_types)
+    >>> except NoAgreeableContentTypeError:
+    >>>     print("No agreeable content type found.")
+    >>>     # Handle error, by returning e.g. 406 Not Acceptable
+    >>> print(content_type)
     'application/json'
 """
 from enum import Enum
