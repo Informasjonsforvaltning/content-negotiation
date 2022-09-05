@@ -6,11 +6,11 @@ Reference
     :backlinks: none
 
 
-content_negotiation.decide_content_type
+content_negotiation.content_negotiation
 ---------------------------------------
 
 .. automodule:: content_negotiation.content_negotiation
-    :members:
-    :undoc-members:
+    :members:  decide_content_type
+    :exclude-members: is_media_range_type_in_supported_content_types, get_default_content_type, prepare_weighted_media_ranges, InvalidMediaRangeError
     :show-inheritance:
     :inherited-members:

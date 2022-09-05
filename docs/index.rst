@@ -14,8 +14,7 @@ A small Python library for deciding content type based on a list of media ranges
 Installation
 ------------
 
-To install the content-negotiation package,
-run this command in your terminal:
+To install the content-negotiation package, run this command in your terminal:
 
 .. code-block:: console
 
@@ -37,4 +36,5 @@ This package can be used like this:
    except NoAgreeableContentTypeError:
       print("No agreeable content type found.")
       # Handle error, by returning e.g. 406 Not Acceptable
-|
+
+
