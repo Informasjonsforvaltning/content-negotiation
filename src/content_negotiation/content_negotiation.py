@@ -70,15 +70,15 @@ class WeightedMediaRange:
         except ValueError as e:
             raise InvalidMediaRangeError(f"Invalid media range: {media_range}") from e
 
-    def __eq__(self, other: Any) -> bool:  # pragma: no cover
+    def __eq__(self, other: Any) -> bool:
         """Compare two weighted media ranges."""
         if isinstance(other, str):
             return f"{self.type}/{self.sub_type}" == other
         if isinstance(other, WeightedMediaRange):
             return self.type == other.type and self.sub_type == other.sub_type
-        return False
+        return False  # pragma: no cover
 
-    def __lt__(self, other: Any) -> bool:  # pragma: no cover
+    def __lt__(self, other: Any) -> bool:
         """Compare two weighted media ranges."""
         if isinstance(other, WeightedMediaRange):
             # If weighted media ranges are equal, compare specificity:
@@ -86,7 +86,9 @@ class WeightedMediaRange:
                 return self.specificity.value < other.specificity.value
             # If weighted media ranges are not equal, compare q value:
             return self.q < other.q
-        return False
+        raise TypeError(
+            f"Cannot compare WeightedMediaRange with {type(other).__name__}"
+        )
 
     def __str__(self) -> str:
         """Return the weighted media range as a string."""

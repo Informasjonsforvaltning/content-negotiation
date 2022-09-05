@@ -5,7 +5,7 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent",
 ]
-description = "A library for deciding content-type based on media ranges"
+description = "A library for deciding content-type based on media ranges in HTTP Accept headers."
 documentation = "https://content-negotiation.readthedocs.io"
 homepage = "https://github.com/Informasjonsforvaltning/content-negotiation"
 license = "Apache-2.0"
@@ -65,6 +65,12 @@ warn_unreachable = true
 [[tool.mypy.overrides]]
 ignore_missing_imports = true
 module = []
+
+[tool.pytest.ini_options]
+markers = [
+  "unit: marks tests as unit (fast)",
+  "integration: marks tests as integration (slower)",
+]
 
 [build-system]
 build-backend = "poetry.core.masonry.api"

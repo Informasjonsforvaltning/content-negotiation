@@ -14,7 +14,7 @@ SUPPORTED_CONTENT_TYPES = [
 
 
 def test_content_negotiation() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return text/turtle."""
     accept_header: List[str] = ["text/turtle", "application/ld+json"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
@@ -23,7 +23,7 @@ def test_content_negotiation() -> None:
 
 
 def test_content_negotiation_2() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return application/ld+json."""
     accept_header: List[str] = ["application/ld+json", "text/turtle"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
@@ -32,7 +32,7 @@ def test_content_negotiation_2() -> None:
 
 
 def test_content_negotiation_3() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return text/turtle."""
     accept_header: List[str] = ["not/acceptable", "*/*"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
@@ -41,7 +41,7 @@ def test_content_negotiation_3() -> None:
 
 
 def test_content_negotiation_4() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return text/turtle."""
     accept_header: List[str] = ["text/plain", "*/*"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
@@ -50,7 +50,7 @@ def test_content_negotiation_4() -> None:
 
 
 def test_content_negotiation_5() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return text/turtle."""
     accept_header: List[str] = ["*/*", "text/plain"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
@@ -59,7 +59,7 @@ def test_content_negotiation_5() -> None:
 
 
 def test_content_negotiation_6() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return application/rdf+xml."""
     accept_header: List[str] = [
         "application/json",
         "application/*",
@@ -72,7 +72,7 @@ def test_content_negotiation_6() -> None:
 
 
 def test_content_negotiation_7() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return applicaton/ld+json."""
     accept_header: List[str] = [
         "*/*;q=0.8",
         "text/plain",
@@ -86,7 +86,7 @@ def test_content_negotiation_7() -> None:
 
 
 def test_content_negotiation_8() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return application/ld+json."""
     accept_header: List[str] = [
         "*/*;q=0.8;v=b3",
         "text/plain",
@@ -100,7 +100,7 @@ def test_content_negotiation_8() -> None:
 
 
 def test_content_negotiation_9() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return application/ld+json."""
     accept_header: List[str] = ["application/ld+json;v=b3", "*/*"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
@@ -109,7 +109,7 @@ def test_content_negotiation_9() -> None:
 
 
 def test_content_negotiation_10() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return application/ld+json."""
     accept_header: List[str] = ["*/*", "text/*", "application/ld+json"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
@@ -118,7 +118,7 @@ def test_content_negotiation_10() -> None:
 
 
 def test_content_negotiation_11() -> None:
-    """Should return 200 and correct content-type."""
+    """Should return application/rdf+xml."""
     accept_header: List[str] = ["application/*", "text/turtle;q=0.2"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
