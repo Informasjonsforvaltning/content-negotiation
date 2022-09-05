@@ -3,8 +3,8 @@
 Example:
     >>> from content_negotiation import decide_content_type
     >>>
-    >>> accept = ["application/json", "text/html", "text/plain"]
-    >>> supported = ["text/turtle;q=0.9", "application/json"]
+    >>> accept = ["application/json", "text/html", "text/plain, "text/*;q=0.8"]
+    >>> supported = ["text/turtle", "application/json"]
     >>> decide_content_type(accept, supported)
     'application/json'
 """
