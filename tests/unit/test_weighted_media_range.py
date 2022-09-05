@@ -88,24 +88,6 @@ def test_larger_than_when_different_types() -> None:
 
 
 @pytest.mark.unit
-def test_equal_to() -> None:
-    """Should return True if type and sub-type are identical."""
-    media_range = "text/turtle;q=0.5"
-    wmr = WeightedMediaRange(media_range)
-    other = WeightedMediaRange("text/turtle;q=0.5")
-    assert wmr == other
-
-
-@pytest.mark.unit
-def test_not_equal_to() -> None:
-    """Should return True if self is not equal to other."""
-    media_range = "application/ld+json;q=0.5"
-    wmr = WeightedMediaRange(media_range)
-    other = WeightedMediaRange("text/turtle;q=0.5")
-    assert wmr != other
-
-
-@pytest.mark.unit
 def test_str() -> None:
     """Should return a string representation of the object."""
     media_range = "text/turtle;q=0.5"

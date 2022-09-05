@@ -74,8 +74,6 @@ class WeightedMediaRange:
         """Compare two weighted media ranges."""
         if isinstance(other, str):
             return f"{self.type}/{self.sub_type}" == other
-        if isinstance(other, WeightedMediaRange):
-            return self.type == other.type and self.sub_type == other.sub_type
         return False  # pragma: no cover
 
     def __lt__(self, other: Any) -> bool:
