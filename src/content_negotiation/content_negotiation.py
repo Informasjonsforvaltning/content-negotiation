@@ -19,6 +19,12 @@ class InvalidMediaRangeError(ValueError):
     pass
 
 
+class NoAgreeableContentTypeError(Exception):
+    """Exception for no agreeable content type."""
+
+    pass
+
+
 class MediaRangeSpecificity(Enum):
     """Enum for media range specificity."""
 
@@ -145,7 +151,7 @@ def is_media_range_type_in_supported_content_types(
 
 def decide_content_type(
     accept_headers: List[str], supported_content_types: List[str]
-) -> Optional[str]:
+) -> str:
     """Decide the content type based on the given accept-header and supported content-types.
 
     Args:
@@ -155,28 +161,30 @@ def decide_content_type(
     Returns:
         The content type of the response.
 
+    Raises:
+        NoAgreeableContentTypeError: If no agreeable content type is found.
+
     """
     logging.debug(
         f"Deciding content types {accept_headers} " f"against {supported_content_types}"
     )
     # Checking a couple of corner cases:
     if len(supported_content_types) == 0 or len(accept_headers) == 0:
-        return None
+        raise NoAgreeableContentTypeError(
+            "No supported content types or accept headers provided."
+        )
 
     weighted_media_ranges: List[str] = (
         ",".join(accept_headers).replace(" ", "").split(",")
     )
-
-    content_type: Optional[str] = None
     weighted_media_ranges_sorted = prepare_weighted_media_ranges(weighted_media_ranges)
+
     for weighted_media_range in weighted_media_ranges_sorted:
         logging.debug(f"Checking weighted media range: {weighted_media_range}")
         if weighted_media_range in supported_content_types:
-            content_type = weighted_media_range.media_range()
-            break
+            return weighted_media_range.media_range()
         elif weighted_media_range.type == "*" and weighted_media_range.sub_type == "*":
-            content_type = get_default_content_type(supported_content_types)
-            break
+            return get_default_content_type(supported_content_types)
         else:
             # Assumes valid mimetypes from `prepare_mime_types`
             if (
@@ -186,10 +194,7 @@ def decide_content_type(
                     supported_content_types,
                 )
             ):
-                content_type = get_default_content_type(
+                return get_default_content_type(
                     supported_content_types, type=weighted_media_range.type
                 )
-                break
-            else:
-                content_type = None
-    return content_type
+    raise NoAgreeableContentTypeError("No agreeable content type found.")

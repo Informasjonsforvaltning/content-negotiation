@@ -1,8 +1,9 @@
 """Unit test cases for the content_negotiation function."""
 from typing import List
 
+import pytest
 
-from content_negotiation import decide_content_type
+from content_negotiation import decide_content_type, NoAgreeableContentTypeError
 
 SUPPORTED_CONTENT_TYPES = [
     "text/turtle",
@@ -126,37 +127,35 @@ def test_content_negotiation_11() -> None:
 
 
 def test_content_negotiation_12() -> None:
-    """Should return None."""
+    """Should raise NoAgreeableContentTypeError."""
     accept_header: List[str] = ["text/"]
-    content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
-    assert content_type is None, f"'{accept_header}' failed"
+    with pytest.raises(NoAgreeableContentTypeError):
+        _ = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
 
 
 def test_content_negotiation_13() -> None:
-    """Should return None."""
+    """Should raise NoAgreeableContentTypeError."""
     accept_header: List[str] = ["text"]
-    content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
-    assert content_type is None, f"'{accept_header}' failed"
+    with pytest.raises(NoAgreeableContentTypeError):
+        _ = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
 
 
 def test_content_negotiation_14() -> None:
-    """Should return None."""
+    """Should raise NoAgreeableContentTypeError."""
     accept_header: List[str] = ["audio/*"]
-    content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
-    assert content_type is None, f"'{accept_header}' failed"
+    with pytest.raises(NoAgreeableContentTypeError):
+        _ = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
 
 
 def test_content_negotiation_no_supported_content_types() -> None:
-    """Should return None."""
+    """Should raise NoAgreeableContentTypeError."""
     accept_header: List[str] = ["*/*"]
-    content_type = decide_content_type(accept_header, [])
-    assert content_type is None, f"'{accept_header}' failed"
+    with pytest.raises(NoAgreeableContentTypeError):
+        _ = decide_content_type(accept_header, [])
 
 
 def test_content_negotiation_no_accept_header() -> None:
     """Should return default content-type."""
     accept_header: List[str] = []
-    content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
-    assert (
-        content_type is None
-    ), f"For header-value '{accept_header}', content-type should be None."
+    with pytest.raises(NoAgreeableContentTypeError):
+        _ = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
