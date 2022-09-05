@@ -20,10 +20,14 @@ A small Python library for deciding content type based on a list of media ranges
 ```Python
 from content_negotiation import decide_content_type
 
-accept_weighted_media_ranges: List[str] = ["text/turtle", "application/ld+json"]
-content_type = decide_content_type(
-    accept_weighted_media_ranges, SUPPORTED_CONTENT_TYPES
-)
+accept_headers = ["application/json", "text/html", "text/plain, text/*;q=0.8"]
+supported_content_types = ["text/turtle", "application/json"]
+
+try:
+    content_type = decide_content_type(accept_headers, supported_content_types)
+except NoAgreeableContentTypeError:
+    print("No agreeable content type found.")
+    # Handle error, by returning e.g. 406 Not Acceptable
 ```
 
 ## Development

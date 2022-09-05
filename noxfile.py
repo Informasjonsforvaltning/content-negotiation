@@ -10,7 +10,16 @@ locations = "src", "tests", "noxfile.py", "docs/conf.py"
 nox.options.envdir = ".cache"
 nox.options.reuse_existing_virtualenvs = True
 nox.options.stop_on_first_error = True
-nox.options.sessions = "lint", "mypy", "pytype", "tests"
+nox.options.sessions = "lint", "mypy", "pytype", "unit_tests", "tests"
+
+
+@session(python=["3.8", "3.9", "3.10"])
+def unit_tests(session: Session) -> None:
+    """Run the unit test suite."""
+    args = session.posargs
+    session.install(".")
+    session.install("coverage[toml]", "pytest", "pytest-cov", "pytest-mock")
+    session.run("pytest", "-m unit", *args)
 
 
 @session(python=["3.8", "3.9", "3.10"])
