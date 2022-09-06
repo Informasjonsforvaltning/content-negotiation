@@ -28,7 +28,7 @@ def tests(session: Session) -> None:
     args = session.posargs or ["--cov"]
     session.install(".")
     session.install("coverage[toml]", "pytest", "pytest-cov", "pytest-mock")
-    session.run("pytest", *args)
+    session.run("pytest", "-m not (unit)", *args)
 
 
 @session(python=["3.10"])
