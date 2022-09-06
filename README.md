@@ -18,7 +18,7 @@ A small Python library for deciding content type based on a list of media ranges
 ### Getting started
 
 ```Python
-from content_negotiation import decide_content_type
+from content_negotiation import decide_content_type, NoAgreeableContentTypeError
 
 accept_headers = ["application/json", "text/html", "text/plain, text/*;q=0.8"]
 supported_content_types = ["text/turtle", "application/json"]
@@ -51,9 +51,10 @@ except NoAgreeableContentTypeError:
 ```Shell
 % git clone https://github.com/Informasjonsforvaltning/content-negotiation.git
 % cd content-negotiation
-% pyenv install 3.8.12
-% pyenv install 3.9.10
-% pyenv local 3.8.12 3.9.10 
+% pyenv install 3.8.13
+% pyenv install 3.9.13
+% pyenv install 3.10.6
+% pyenv local 3.8.13 3.9.13 3.10.6
 % poetry install
 ```
 
