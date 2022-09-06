@@ -1,7 +1,7 @@
 """Package for function determining content-type based on accept header.
 
 Example:
-    >>> from content_negotiation import decide_content_type
+    >>> from content_negotiation import decide_content_type, NoAgreeableContentTypeError
     >>>
     >>> accept_headers = ["application/json", "text/html", "text/plain, text/*;q=0.8"]
     >>> supported_content_types = ["text/turtle", "application/json"]
