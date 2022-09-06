@@ -9,7 +9,7 @@ package = "content_negotiation"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 nox.options.envdir = ".cache"
 nox.options.reuse_existing_virtualenvs = True
-nox.options.stop_on_first_error = True
+nox.options.stop_on_first_error = False
 nox.options.sessions = "lint", "mypy", "pytype", "unit_tests", "tests"
 
 
@@ -56,7 +56,7 @@ def lint(session: Session) -> None:
     session.run("flake8", *args)
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10"])
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages."""
     requirements = session.poetry.export_requirements()
