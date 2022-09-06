@@ -92,7 +92,7 @@ class WeightedMediaRange:
             return self.q < other.q
         raise TypeError(
             f"Cannot compare WeightedMediaRange with {type(other).__name__}"
-        )
+        )  # pragma: no cover
 
     def __str__(self) -> str:
         """Return the weighted media range as a string."""
@@ -175,10 +175,12 @@ def decide_content_type(
         f"Deciding content types {accept_headers} " f"against {supported_content_types}"
     )
     # Checking a couple of corner cases:
-    if len(supported_content_types) == 0 or len(accept_headers) == 0:
+    if len(supported_content_types) == 0:
         raise NoAgreeableContentTypeError(
             "No supported content types or accept headers provided."
         )
+    if len(accept_headers) == 0:
+        return get_default_content_type(supported_content_types)
 
     weighted_media_ranges: List[str] = (
         ",".join(accept_headers).replace(" ", "").split(",")

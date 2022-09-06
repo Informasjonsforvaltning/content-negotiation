@@ -157,5 +157,7 @@ def test_content_negotiation_no_supported_content_types() -> None:
 def test_content_negotiation_no_accept_header() -> None:
     """Should return default content-type."""
     accept_header: List[str] = []
-    with pytest.raises(NoAgreeableContentTypeError):
-        _ = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
+    content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
+    assert (
+        "text/turtle" == content_type
+    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
