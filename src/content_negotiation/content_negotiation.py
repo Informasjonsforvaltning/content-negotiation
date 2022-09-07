@@ -85,10 +85,10 @@ class WeightedMediaRange:
     def __lt__(self, other: Any) -> bool:
         """Compare two weighted media ranges."""
         if isinstance(other, WeightedMediaRange):
-            # If weighted media ranges are equal, compare specificity:
+            # Compare q values:
             if self.q == other.q:
                 return self.specificity.value < other.specificity.value
-            # If weighted media ranges are not equal, compare q value:
+            # When q values are equal, compare specificity instead:
             return self.q < other.q
         raise TypeError(
             f"Cannot compare WeightedMediaRange with {type(other).__name__}"
