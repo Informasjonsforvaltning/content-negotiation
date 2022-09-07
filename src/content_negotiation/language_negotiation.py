@@ -68,9 +68,9 @@ class WeightedLanguage:
 def prepare_weighted_languages(
     weighted_languages: List[str],
 ) -> List[WeightedLanguage]:
-    """Prepare the accept weighted languages and sort on q-parameter."""
+    """Prepare the accept weighted languages and sort."""
     logging.debug(f"Preparing accept weighted languages: {weighted_languages}")
-    # Assign q-parameter:
+
     weighted_languages_sorted: List[WeightedLanguage] = []
 
     for accept_weighted_language in weighted_languages:

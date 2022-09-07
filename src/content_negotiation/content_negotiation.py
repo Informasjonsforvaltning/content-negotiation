@@ -106,9 +106,9 @@ class WeightedMediaRange:
 def prepare_weighted_media_ranges(
     weighted_media_ranges: List[str],
 ) -> List[WeightedMediaRange]:
-    """Prepare the accept weighted media ranges and sort on q-parameter."""
+    """Prepare the accept weighted media ranges and sort."""
     logging.debug(f"Preparing accept weighted media ranges: {weighted_media_ranges}")
-    # Assign q-parameter:
+
     weighted_media_ranges_sorted: List[WeightedMediaRange] = []
 
     for accept_weighted_media_range in weighted_media_ranges:
