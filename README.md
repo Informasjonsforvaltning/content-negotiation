@@ -7,7 +7,7 @@
 
 A small Python library supporting content-negotiation.
 
-It can be used to deciding content type based on a list of media ranges, as well as deciding content-language based on the accpe-language header.
+It is used to decide content type based on a list of media ranges, as well as deciding content-language based on the accpe-language header.
 
 ## Usage
 
