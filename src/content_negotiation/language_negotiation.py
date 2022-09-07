@@ -54,7 +54,6 @@ class WeightedLanguage:
     def __lt__(self, other: Any) -> bool:
         """Compare two weighted languages."""
         if isinstance(other, WeightedLanguage):
-            # If weighted languages are not equal, compare q value:
             return self.q < other.q
         raise TypeError(
             f"Cannot compare WeightedLanguage with {type(other).__name__}"
