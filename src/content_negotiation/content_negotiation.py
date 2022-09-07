@@ -1,4 +1,4 @@
-"""Package for function determining content-type based on accept header.
+"""Module for determining content-type based on accept header.
 
 Example:
     >>> from content_negotiation import decide_content_type, NoAgreeableContentTypeError

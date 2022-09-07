@@ -1,18 +1,18 @@
-"""Package for function determining content-type based on accept header.
+"""Module for determining content-language based on accept-language header.
 
 Example:
-    >>> from content_negotiation import decide_content_type, NoAgreeableLanguageError
+    >>> from content_negotiation import decide_language, NoAgreeableLanguageError
     >>>
-    >>> accept_language_headers = ["application/json", "text/html", "text/plain, text/*;q=0.8"]
-    >>> supported_languages = ["text/turtle", "application/json"]
+    >>> accept_language_headers = ["en-GB;q=0.8", "nb-NO;q=0.9"]
+    >>> supported_languages = ["en-GB", "en", "nb-NO", "nb", "en-US"]
     >>>
     >>> try:
-    >>>     content_type = decide_content_type(accept_language_headers, supported_languages)
+    >>>     content_language = decide_language(accept_language_headers, supported_languages)
     >>> except NoAgreeableLanguageError:
     >>>     print("No agreeable language found.")
     >>>     # Handle error, by returning e.g. 406 Not Acceptable
-    >>> print(content_type)
-    'application/json'
+    >>> print(content_language)
+    'nb-NO'
 """
 import logging
 from typing import Any, List
