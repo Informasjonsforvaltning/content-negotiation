@@ -42,8 +42,6 @@ class WeightedLanguage:
             if weighted_language_part.startswith("q="):
                 self.q = float(
                     # RFC specifies only 3 decimals may be used in q value.
-                    # Must strip additional decimals so that q bonus from specificity
-                    # results in correct sorting.
                     weighted_language_part.split("=")[1][0:5]
                 )
 
