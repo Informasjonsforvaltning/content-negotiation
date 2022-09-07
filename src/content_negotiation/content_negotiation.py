@@ -1,4 +1,4 @@
-"""Package for function determining content-type based on accept header.
+"""Module for determining content-type based on accept header.
 
 Example:
     >>> from content_negotiation import decide_content_type, NoAgreeableContentTypeError
@@ -85,14 +85,14 @@ class WeightedMediaRange:
     def __lt__(self, other: Any) -> bool:
         """Compare two weighted media ranges."""
         if isinstance(other, WeightedMediaRange):
-            # If weighted media ranges are equal, compare specificity:
+            # Compare q values:
             if self.q == other.q:
                 return self.specificity.value < other.specificity.value
-            # If weighted media ranges are not equal, compare q value:
+            # When q values are equal, compare specificity instead:
             return self.q < other.q
         raise TypeError(
             f"Cannot compare WeightedMediaRange with {type(other).__name__}"
-        )
+        )  # pragma: no cover
 
     def __str__(self) -> str:
         """Return the weighted media range as a string."""
@@ -106,9 +106,9 @@ class WeightedMediaRange:
 def prepare_weighted_media_ranges(
     weighted_media_ranges: List[str],
 ) -> List[WeightedMediaRange]:
-    """Prepare the accept weighted media ranges and sort on q-parameter."""
+    """Prepare the accept weighted media ranges and sort."""
     logging.debug(f"Preparing accept weighted media ranges: {weighted_media_ranges}")
-    # Assign q-parameter:
+
     weighted_media_ranges_sorted: List[WeightedMediaRange] = []
 
     for accept_weighted_media_range in weighted_media_ranges:
@@ -175,10 +175,12 @@ def decide_content_type(
         f"Deciding content types {accept_headers} " f"against {supported_content_types}"
     )
     # Checking a couple of corner cases:
-    if len(supported_content_types) == 0 or len(accept_headers) == 0:
+    if len(supported_content_types) == 0:
         raise NoAgreeableContentTypeError(
             "No supported content types or accept headers provided."
         )
+    if len(accept_headers) == 0:
+        return get_default_content_type(supported_content_types)
 
     weighted_media_ranges: List[str] = (
         ",".join(accept_headers).replace(" ", "").split(",")
