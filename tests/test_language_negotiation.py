@@ -58,3 +58,11 @@ def test_language_negotiation_accept_header_contains_languages_and_no_supported_
     supported_languages: List[str] = []
     with pytest.raises(NoAgreeableLanguageError):
         decide_language(accept_language_header, supported_languages)
+
+
+def test_language_negotiation_accept_header_contains_only_semicolon_and_q() -> None:  # noqa: B950
+    """Should raise NoAgreeableLanguageError."""
+    accept_language_header: List[str] = [";q=0.8"]
+    supported_languages: List[str] = []
+    with pytest.raises(NoAgreeableLanguageError):
+        decide_language(accept_language_header, supported_languages)
