@@ -18,6 +18,8 @@ from enum import Enum
 import logging
 from typing import Any, List, Optional
 
+from content_negotiation.utils import parse_and_sort_items
+
 
 class InvalidMediaRangeError(ValueError):
     """Exception for invalid media ranges."""
@@ -107,28 +109,9 @@ def prepare_weighted_media_ranges(
     weighted_media_ranges: List[str],
 ) -> List[WeightedMediaRange]:
     """Prepare the accept weighted media ranges and sort."""
-    logging.debug(f"Preparing accept weighted media ranges: {weighted_media_ranges}")
-
-    weighted_media_ranges_sorted: List[WeightedMediaRange] = []
-
-    for accept_weighted_media_range in weighted_media_ranges:
-        # Instantiate weighted media range:
-        try:
-            weighted_media_range = WeightedMediaRange(accept_weighted_media_range)
-
-            weighted_media_ranges_sorted.append(weighted_media_range)
-        except InvalidMediaRangeError:
-            logging.debug(
-                "Ignoring invalid weighted media range: %s", accept_weighted_media_range
-            )
-            pass  # ignore invalid media range
-
-    # Sort and return list of weighted media ranges:
-    weighted_media_ranges_sorted.sort(reverse=True)
-    logging.debug(
-        f"Accept weighted media ranges sorted: {', '.join(str(p) for p in weighted_media_ranges_sorted)}"  # noqa: B950
+    return parse_and_sort_items(
+        weighted_media_ranges, WeightedMediaRange, InvalidMediaRangeError
     )
-    return weighted_media_ranges_sorted
 
 
 def get_default_content_type(
