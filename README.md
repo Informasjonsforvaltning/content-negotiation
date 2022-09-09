@@ -7,7 +7,7 @@
 
 A small Python library supporting content-negotiation.
 
-It is used to decide content type based on a list of media ranges, as well as deciding content-language based on the accpe-language header.
+It is used to decide content type based on a list of media ranges, as well as deciding content-language based on the accept-language header.
 
 ## Usage
 
@@ -53,16 +53,16 @@ except NoAgreeableLanguageError:
 
 ### Requirements
 
-- [pyenv](https://github.com/pyenv/pyenv) (recommended)
-- python3
-- [pipx](https://github.com/pipxproject/pipx) (recommended)
-- [poetry](https://python-poetry.org/)
-- [nox](https://nox.thea.codes/en/stable/)
+* [pyenv](https://github.com/pyenv/pyenv) (recommended)
+* python3
+* [pipx](https://github.com/pipxproject/pipx) (recommended)
+* [poetry](https://python-poetry.org/) # version v1.2.0 or higher
+* [nox](https://nox.thea.codes/en/stable/)
 
 ```Shell
-% pipx install poetry==1.1.13
-% pipx install nox==2022.1.7
-% pipx inject nox nox-poetry==0.9.0
+% pipx install poetry==1.2.0
+% pipx install nox==2022.8.7
+% pipx inject nox nox-poetry==1.0.1
 ```
 
 ### Install developer tools
