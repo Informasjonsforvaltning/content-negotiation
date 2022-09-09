@@ -17,6 +17,8 @@ Example:
 import logging
 from typing import Any, List
 
+from content_negotiation.utils import MustParseWithoutException, parse_and_sort_items
+
 
 class NoAgreeableLanguageError(Exception):
     """Exception for no agreeable language."""
@@ -68,21 +70,9 @@ def prepare_weighted_languages(
     weighted_languages: List[str],
 ) -> List[WeightedLanguage]:
     """Prepare the accept weighted languages and sort."""
-    logging.debug(f"Preparing accept weighted languages: {weighted_languages}")
-
-    weighted_languages_sorted: List[WeightedLanguage] = []
-
-    for accept_weighted_language in weighted_languages:
-        # Instantiate weighted language:
-        weighted_language = WeightedLanguage(accept_weighted_language)
-        weighted_languages_sorted.append(weighted_language)
-
-    # Sort and return list of weighted languages:
-    weighted_languages_sorted.sort(reverse=True)
-    logging.debug(
-        f"Accept weighted languages sorted: {', '.join(str(p) for p in weighted_languages_sorted)}"  # noqa: B950
+    return parse_and_sort_items(
+        weighted_languages, WeightedLanguage, MustParseWithoutException
     )
-    return weighted_languages_sorted
 
 
 def get_default_language(supported_languages: List[str]) -> str:
@@ -95,10 +85,6 @@ def get_default_language(supported_languages: List[str]) -> str:
         The default language.
 
     """
-    # If no accept-language header is provided, return the first supported language:
-    logging.debug(
-        "No accept-language header provided. Returning first supported language."
-    )
     return supported_languages[0]
 
 
@@ -128,6 +114,10 @@ def decide_language(
             "No supported languages or accept language headers provided."
         )
     if len(accept_language_headers) == 0:
+        # If no accept-language header is provided, return the first supported language:
+        logging.debug(
+            "No accept-language header provided. Returning first supported language."
+        )
         return get_default_language(supported_languages)
 
     weighted_languages: List[str] = (
