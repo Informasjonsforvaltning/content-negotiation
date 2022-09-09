@@ -133,7 +133,7 @@ def test_content_negotiation_12() -> None:
         _ = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
 
 
-def test_content_negotiation_13() -> None:
+def test_content_negotiation_media_range_invalid() -> None:
     """Should raise NoAgreeableContentTypeError."""
     accept_header: List[str] = ["text"]
     with pytest.raises(NoAgreeableContentTypeError):
@@ -157,6 +157,24 @@ def test_content_negotiation_no_supported_content_types() -> None:
 def test_content_negotiation_no_accept_header() -> None:
     """Should return default content-type."""
     accept_header: List[str] = []
+    content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
+    assert (
+        "text/turtle" == content_type
+    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+
+
+def test_content_negotiation_q_value_0_0() -> None:
+    """Should be ignored and return default content-type."""
+    accept_header: List[str] = ["application/json;q=0.0"]
+    content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
+    assert (
+        "text/turtle" == content_type
+    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+
+
+def test_content_negotiation_q_value_below_0_0() -> None:
+    """Should be ignored and return default content-type."""
+    accept_header: List[str] = ["application/json;q=-1.0"]
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
