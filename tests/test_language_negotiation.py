@@ -102,3 +102,11 @@ def test_language_negotiation_accept_language_header_empty() -> None:
     assert (
         SUPPORTED_LANGUAGES[0] == content_language  # "en-GB"
     ), f"For header-value '{accept_language_header}', content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
+
+
+def test_language_negotiation_accept_language_header_contains_only_empty_string() -> None:
+    """Should raise NoAgreeableLanguageError."""
+    accept_language_header: List[str] = [""]
+    supported_languages: List[str] = []
+    with pytest.raises(NoAgreeableLanguageError):
+        decide_language(accept_language_header, supported_languages)

@@ -153,12 +153,10 @@ def decide_language(
             "No supported languages or accept language headers provided."
         )
 
-    # Prepare accept weighted languages:
-    weighted_languages: List[str] = (
-        ",".join(accept_language_headers).replace(" ", "").split(",")
-    )
-    weighted_languages = [s for s in weighted_languages if s]  # remove empty strings
-
+    # Parse and sort the accept-language headers:
+    weighted_languages: List[str] = [
+        wl for header in accept_language_headers for wl in header.split(",")
+    ]
     weighted_languages_sorted = prepare_weighted_languages(weighted_languages)
 
     # Remove weighted languages with q=0.0:

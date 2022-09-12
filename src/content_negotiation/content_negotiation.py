@@ -188,13 +188,9 @@ def decide_content_type(
         )
 
     # We need to parse and sort the accept headers:
-    weighted_media_ranges: List[str] = (
-        ",".join(accept_headers).replace(" ", "").split(",")
-    )
-    weighted_media_ranges = [
-        s for s in weighted_media_ranges if s
-    ]  # remove empty strings
-
+    weighted_media_ranges: List[str] = [
+        wmr for header in accept_headers for wmr in header.split(",")
+    ]
     weighted_media_ranges_sorted = prepare_weighted_media_ranges(weighted_media_ranges)
 
     # If only invalid media ranges were given, return NoAgreeableContentTypeError:

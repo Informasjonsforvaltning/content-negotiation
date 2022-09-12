@@ -179,3 +179,10 @@ def test_content_negotiation_q_value_below_0_0() -> None:
     assert (
         "text/turtle" == content_type
     ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+
+
+def test_content_negotiation_header_contains_only_empty_string() -> None:
+    """Should raise NoAgreeableContentTypeError."""
+    accept_header: List[str] = [""]
+    with pytest.raises(NoAgreeableContentTypeError):
+        _ = decide_content_type(accept_header, [])
