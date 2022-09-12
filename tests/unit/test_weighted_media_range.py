@@ -57,6 +57,24 @@ def test_initialization_sub_type_non_specific() -> None:
 
 
 @pytest.mark.unit
+def test_initialization_q_above_1_0() -> None:
+    """Should a WeightedMediaRange object with q = 1.0."""
+    media_range = "text/turtle;q=1.1"
+    wmr = WeightedMediaRange(media_range)
+    assert wmr
+    assert wmr.q == 1.0
+
+
+@pytest.mark.unit
+def test_initialization_q_below_0_0() -> None:
+    """Should a WeightedMediaRange object with q = 0.0."""
+    media_range = "text/turtle;q=-1.1"
+    wmr = WeightedMediaRange(media_range)
+    assert wmr
+    assert wmr.q == 0.0
+
+
+@pytest.mark.unit
 def test_larger_than() -> None:
     """Should return True if self is larger than other."""
     media_range = "text/turtle;q=0.5"

@@ -49,14 +49,16 @@ class WeightedMediaRange:
 
     def __init__(self, media_range: str) -> None:
         """Initialize the weighted media range."""
-        weighted_media_range_split = media_range.split(";")
         # Instantiate weighted media range:
+        weighted_media_range_split = media_range.split(";")
+        # Determine specificity:
         try:
             logging.debug(
-                f"Assigning q-parameter for weighted media range: {media_range}"
+                f"Determine specificty and asign q-parameter for weighted media range: {media_range}"  # noqa: B950
             )
             self.type, self.sub_type = weighted_media_range_split[0].split("/")
-            # Check if media range is specific:
+
+            # Determine specificity:
             if self.type == "*":
                 self.specificity = MediaRangeSpecificity.NONSPECIFIC
             elif self.sub_type == "*":
@@ -73,6 +75,10 @@ class WeightedMediaRange:
                         # results in correct sorting.
                         weighted_media_range_part.split("=")[1][0:5]
                     )
+                    # Check if q value is valid and adjust accordingly:
+                    self.q = 1.0 if self.q > 1.0 else self.q
+                    self.q = 0.0 if self.q < 0.0 else self.q
+
         except ValueError as e:
             raise InvalidMediaRangeError(f"Invalid media range: {media_range}") from e
 
@@ -85,10 +91,10 @@ class WeightedMediaRange:
     def __lt__(self, other: Any) -> bool:
         """Compare two weighted media ranges."""
         if isinstance(other, WeightedMediaRange):
-            # Compare q values:
+            # When q values are equal, compare specificity instead:
             if self.q == other.q:
                 return self.specificity.value < other.specificity.value
-            # When q values are equal, compare specificity instead:
+            # Compare q values:
             return self.q < other.q
         raise TypeError(
             f"Cannot compare WeightedMediaRange with {type(other).__name__}"
@@ -128,6 +134,7 @@ def prepare_weighted_media_ranges(
     logging.debug(
         f"Accept weighted media ranges sorted: {', '.join(str(p) for p in weighted_media_ranges_sorted)}"  # noqa: B950
     )
+
     return weighted_media_ranges_sorted
 
 
@@ -158,7 +165,7 @@ def is_media_range_type_in_supported_content_types(
 def decide_content_type(
     accept_headers: List[str], supported_content_types: List[str]
 ) -> str:
-    """Decide the content type based on the given accept-header and supported content-types.
+    """Decide the content type based on the given accept header and supported content-types.
 
     Args:
         accept_headers (List[str]): the accept headers.
@@ -174,19 +181,36 @@ def decide_content_type(
     logging.debug(
         f"Deciding content types {accept_headers} " f"against {supported_content_types}"
     )
-    # Checking a couple of corner cases:
+    # Checking corner cases:
     if len(supported_content_types) == 0:
         raise NoAgreeableContentTypeError(
             "No supported content types or accept headers provided."
         )
-    if len(accept_headers) == 0:
-        return get_default_content_type(supported_content_types)
 
-    weighted_media_ranges: List[str] = (
-        ",".join(accept_headers).replace(" ", "").split(",")
-    )
+    # We need to parse and sort the accept headers:
+    weighted_media_ranges: List[str] = [
+        wmr for header in accept_headers for wmr in header.split(",")
+    ]
     weighted_media_ranges_sorted = prepare_weighted_media_ranges(weighted_media_ranges)
 
+    # If only invalid media ranges were given, return NoAgreeableContentTypeError:
+    if len(weighted_media_ranges) and not len(weighted_media_ranges_sorted):
+        raise NoAgreeableContentTypeError()
+
+    # Remove weighted media-ranges with q=0.0:
+    weighted_media_ranges_sorted = [
+        weighted_media_range
+        for weighted_media_range in weighted_media_ranges_sorted
+        if weighted_media_range.q != 0.0
+    ]
+
+    # If the list of media-ranges accepted is empty, return the default content type:
+    if len(weighted_media_ranges_sorted) == 0:
+        logging.debug("No media ranges provided. Returning default content-type.")
+        return get_default_content_type(supported_content_types)
+
+    # If the list of media-ranges accepted is not empty, find the first one that is
+    # supported by the server:
     for weighted_media_range in weighted_media_ranges_sorted:
         logging.debug(f"Checking weighted media range: {weighted_media_range}")
         if weighted_media_range in supported_content_types:
@@ -205,4 +229,6 @@ def decide_content_type(
                 return get_default_content_type(
                     supported_content_types, type=weighted_media_range.type
                 )
+
+    # If no media-range is supported, raise NoAgreeableContentTypeError:
     raise NoAgreeableContentTypeError("No agreeable content type found.")
