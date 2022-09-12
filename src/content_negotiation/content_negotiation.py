@@ -187,14 +187,14 @@ def decide_content_type(
             "No supported content types or accept headers provided."
         )
 
-    # If no accept headers are provided, return the default content type:
-    if len(accept_headers) == 0:
-        return get_default_content_type(supported_content_types)
-
     # We need to parse and sort the accept headers:
     weighted_media_ranges: List[str] = (
         ",".join(accept_headers).replace(" ", "").split(",")
     )
+    weighted_media_ranges = [
+        s for s in weighted_media_ranges if s
+    ]  # remove empty strings
+
     weighted_media_ranges_sorted = prepare_weighted_media_ranges(weighted_media_ranges)
 
     # If only invalid media ranges were given, return NoAgreeableContentTypeError:

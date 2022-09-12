@@ -153,14 +153,12 @@ def decide_language(
             "No supported languages or accept language headers provided."
         )
 
-    # If no accept-language headers are provided, return the default content type:
-    if len(accept_language_headers) == 0:
-        return get_default_language(supported_languages)
-
     # Prepare accept weighted languages:
     weighted_languages: List[str] = (
         ",".join(accept_language_headers).replace(" ", "").split(",")
     )
+    weighted_languages = [s for s in weighted_languages if s]  # remove empty strings
+
     weighted_languages_sorted = prepare_weighted_languages(weighted_languages)
 
     # Remove weighted languages with q=0.0:
