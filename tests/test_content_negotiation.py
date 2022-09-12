@@ -185,4 +185,4 @@ def test_content_negotiation_header_contains_only_empty_string() -> None:
     """Should raise NoAgreeableContentTypeError."""
     accept_header: List[str] = [""]
     with pytest.raises(NoAgreeableContentTypeError):
-        _ = decide_content_type(accept_header, [])
+        _ = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)

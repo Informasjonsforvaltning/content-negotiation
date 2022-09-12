@@ -107,6 +107,6 @@ def test_language_negotiation_accept_language_header_empty() -> None:
 def test_language_negotiation_accept_language_header_contains_only_empty_string() -> None:
     """Should raise NoAgreeableLanguageError."""
     accept_language_header: List[str] = [""]
-    supported_languages: List[str] = []
+    supported_languages: List[str] = SUPPORTED_LANGUAGES
     with pytest.raises(NoAgreeableLanguageError):
         decide_language(accept_language_header, supported_languages)
