@@ -15,7 +15,7 @@ repository = "https://github.com/Informasjonsforvaltning/content-negotiation"
 version = "1.1.1"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = ">=3.8,<4.0"
 
 [tool.poetry.group.dev.dependencies]
 Sphinx = "^5.0.1"
@@ -37,7 +37,7 @@ nox-poetry = "^1.0.0"
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 pytest-mock = "^3.6.1"
-pytype = "^2022.8.30"
+pytype = {version= "^2022.8.30", python = ">=3.8,<3.11"}
 safety = "^2.1.1"
 sphinx-autodoc-typehints = "^1.11.1"
 sphinxcontrib-napoleon = "^0.7"
