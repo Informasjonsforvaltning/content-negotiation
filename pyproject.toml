@@ -12,7 +12,7 @@ license = "Apache-2.0"
 name = "content-negotiation"
 readme = "README.md"
 repository = "https://github.com/Informasjonsforvaltning/content-negotiation"
-version = "1.1.1"
+version = "1.1.2"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
