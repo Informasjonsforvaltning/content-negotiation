@@ -1,4 +1,5 @@
 """Nox sessions."""
+
 import sys
 
 import nox
@@ -13,7 +14,7 @@ nox.options.stop_on_first_error = False
 nox.options.sessions = "lint", "mypy", "pytype", "unit_tests", "tests"
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10", "3.11", "3.12"])
 def unit_tests(session: Session) -> None:
     """Run the unit test suite."""
     args = session.posargs
@@ -22,7 +23,7 @@ def unit_tests(session: Session) -> None:
     session.run("pytest", "-m unit", *args)
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10", "3.11", "3.12"])
 def tests(session: Session) -> None:
     """Run the test suite."""
     args = session.posargs or ["--cov"]
@@ -39,7 +40,7 @@ def black(session: Session) -> None:
     session.run("black", *args)
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10"])
 def lint(session: Session) -> None:
     """Lint using flake8."""
     args = session.posargs or locations
@@ -64,7 +65,7 @@ def safety(session: Session) -> None:
     session.run("safety", "check", "--full-report", f"--file={requirements}")
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10", "3.11", "3.12"])
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or [
@@ -80,7 +81,7 @@ def mypy(session: Session) -> None:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10"])
 def pytype(session: Session) -> None:
     """Run the static type checker using pytype."""
     args = session.posargs or ["--disable=import-error", *locations]
@@ -88,7 +89,7 @@ def pytype(session: Session) -> None:
     session.run("pytype", *args)
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10"])
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
@@ -97,7 +98,7 @@ def xdoctest(session: Session) -> None:
     session.run("python", "-m", "xdoctest", package, *args)
 
 
-@session(python=["3.8", "3.9", "3.10"])
+@session(python=["3.10"])
 def docs(session: Session) -> None:
     """Build the documentation."""
     session.run("poetry", "install", "--no-dev", external=True)

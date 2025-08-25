@@ -1,4 +1,5 @@
 """Unit test cases for the content_negotiation function."""
+
 import pytest
 
 from content_negotiation.content_negotiation import (

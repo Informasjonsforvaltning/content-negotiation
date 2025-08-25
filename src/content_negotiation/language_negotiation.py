@@ -14,6 +14,7 @@ Example:
     >>> print(content_language)
     'nb-NO'
 """
+
 from enum import Enum
 import logging
 from typing import Any, List
