@@ -1,4 +1,5 @@
 """Unit test cases for the content_negotiation function."""
+
 from typing import List
 
 import pytest

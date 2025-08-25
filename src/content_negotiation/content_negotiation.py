@@ -14,6 +14,7 @@ Example:
     >>> print(content_type)
     'application/json'
 """
+
 from enum import Enum
 import logging
 from typing import Any, List, Optional

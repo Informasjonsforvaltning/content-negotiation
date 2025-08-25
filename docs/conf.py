@@ -1,4 +1,5 @@
 """Sphinx configuration."""
+
 project = "content-negotiation"
 author = "Stig B. Dørmænen"
 copyright = f"2022, {author}"
