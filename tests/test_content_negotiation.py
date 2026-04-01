@@ -20,7 +20,7 @@ def test_content_negotiation() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
-    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be text/turtle."  # noqa: B950
 
 
 def test_content_negotiation_2() -> None:
@@ -29,7 +29,7 @@ def test_content_negotiation_2() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "application/ld+json" == content_type
-    ), f"For '{accept_header}', content-type should be application/ld+json."  # noqa: B950
+    ), f"For {accept_header!r}, content-type should be application/ld+json."  # noqa: B950
 
 
 def test_content_negotiation_3() -> None:
@@ -38,7 +38,7 @@ def test_content_negotiation_3() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
-    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be text/turtle."  # noqa: B950
 
 
 def test_content_negotiation_4() -> None:
@@ -47,7 +47,7 @@ def test_content_negotiation_4() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
-    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be text/turtle."  # noqa: B950
 
 
 def test_content_negotiation_5() -> None:
@@ -56,7 +56,7 @@ def test_content_negotiation_5() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
-    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be text/turtle."  # noqa: B950
 
 
 def test_content_negotiation_6() -> None:
@@ -69,7 +69,7 @@ def test_content_negotiation_6() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "application/rdf+xml" == content_type
-    ), f"For header-value '{accept_header}', content-type should be application/rdf+xml."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be application/rdf+xml."  # noqa: B950
 
 
 def test_content_negotiation_7() -> None:
@@ -83,7 +83,7 @@ def test_content_negotiation_7() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "application/ld+json" == content_type
-    ), f"For header-value '{accept_header}', content-type should be application/ld+json."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be application/ld+json."  # noqa: B950
 
 
 def test_content_negotiation_8() -> None:
@@ -97,7 +97,7 @@ def test_content_negotiation_8() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "application/ld+json" == content_type
-    ), f"For header-value '{accept_header}', content-type should be application/ld+json."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be application/ld+json."  # noqa: B950
 
 
 def test_content_negotiation_9() -> None:
@@ -106,7 +106,7 @@ def test_content_negotiation_9() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "application/ld+json" == content_type
-    ), f"For header-value '{accept_header}', content-type should be application/ld+json."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be application/ld+json."  # noqa: B950
 
 
 def test_content_negotiation_10() -> None:
@@ -115,7 +115,7 @@ def test_content_negotiation_10() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "application/ld+json" == content_type
-    ), f"For header-value '{accept_header}', content-type should be application/ld+json."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be application/ld+json."  # noqa: B950
 
 
 def test_content_negotiation_11() -> None:
@@ -124,7 +124,7 @@ def test_content_negotiation_11() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "application/rdf+xml" == content_type
-    ), f"For header-value '{accept_header}', content-type should be application/rdf+xml."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be application/rdf+xml."  # noqa: B950
 
 
 def test_content_negotiation_12() -> None:
@@ -161,7 +161,7 @@ def test_content_negotiation_no_accept_header() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
-    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be text/turtle."  # noqa: B950
 
 
 def test_content_negotiation_q_value_0_0() -> None:
@@ -170,7 +170,7 @@ def test_content_negotiation_q_value_0_0() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
-    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be text/turtle."  # noqa: B950
 
 
 def test_content_negotiation_q_value_below_0_0() -> None:
@@ -179,7 +179,7 @@ def test_content_negotiation_q_value_below_0_0() -> None:
     content_type = decide_content_type(accept_header, SUPPORTED_CONTENT_TYPES)
     assert (
         "text/turtle" == content_type
-    ), f"For header-value '{accept_header}', content-type should be text/turtle."  # noqa: B950
+    ), f"For header-value {accept_header!r}, content-type should be text/turtle."  # noqa: B950
 
 
 def test_content_negotiation_header_contains_only_empty_string() -> None:
