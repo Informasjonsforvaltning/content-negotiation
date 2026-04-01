@@ -18,7 +18,7 @@ def test_language_negotiation_accept_language_header_contains_one_supported_lang
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         "en-GB" == content_language
-    ), f"For header-value '{accept_language_header}', content-language should be en-GB."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be en-GB."  # noqa: B950
 
 
 def test_language_negotiation_accept_language_header_contains_two_supported_languages() -> (
@@ -29,7 +29,7 @@ def test_language_negotiation_accept_language_header_contains_two_supported_lang
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         "en-GB" == content_language
-    ), f"For header-value '{accept_language_header}', content-language should be en-GB."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be en-GB."  # noqa: B950
 
 
 def test_language_negotiation_accept_language_header_contains_languages_with_q_factor() -> (
@@ -40,7 +40,7 @@ def test_language_negotiation_accept_language_header_contains_languages_with_q_f
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         "nb-NO" == content_language
-    ), f"For header-value '{accept_language_header}', content-language should be nb-NO."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be nb-NO."  # noqa: B950
 
 
 def test_language_negotiation_accept_language_header_contains_no_supported_languages() -> (
@@ -58,7 +58,7 @@ def test_language_negotiation__q_value_0_0() -> None:
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         SUPPORTED_LANGUAGES[0] == content_language  # en-GB
-    ), f"For header-value '{accept_language_header}', content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
 
 
 def test_language_negotiation__q_value_below_0_0() -> None:
@@ -67,7 +67,7 @@ def test_language_negotiation__q_value_below_0_0() -> None:
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         SUPPORTED_LANGUAGES[0] == content_language  # en-GB
-    ), f"For header-value '{accept_language_header}', content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
 
 
 def test_language_negotiation_accept_language_header_contains_languages_and_no_supported_language() -> (  # noqa: B950
@@ -95,7 +95,7 @@ def test_language_negotiation_accept_language_header_contains_only_star() -> Non
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         SUPPORTED_LANGUAGES[0] == content_language  # "en-GB"
-    ), f"For header-value '{accept_language_header}', content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
 
 
 def test_language_negotiation_accept_language_header_contains_star_with_highest_q() -> (
@@ -106,7 +106,7 @@ def test_language_negotiation_accept_language_header_contains_star_with_highest_
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         SUPPORTED_LANGUAGES[0] == content_language  # "en-GB"
-    ), f"For header-value '{accept_language_header}', content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
 
 
 def test_language_negotiation_accept_language_header_empty() -> None:
@@ -115,7 +115,7 @@ def test_language_negotiation_accept_language_header_empty() -> None:
     content_language = decide_language(accept_language_header, SUPPORTED_LANGUAGES)
     assert (
         SUPPORTED_LANGUAGES[0] == content_language  # "en-GB"
-    ), f"For header-value '{accept_language_header}', content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
+    ), f"For header-value {accept_language_header!r}, content-language should be {SUPPORTED_LANGUAGES[0]}."  # noqa: B950
 
 
 def test_language_negotiation_accept_language_header_contains_only_empty_string() -> (
